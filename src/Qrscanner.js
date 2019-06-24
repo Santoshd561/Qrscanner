@@ -2,23 +2,30 @@ import React, { Component } from 'react'
 import QrReader from 'react-qr-reader'
 
 export default class Test extends Component {
+    state = {
+        result: 'No result'
+    }
+
+    handleScan = data => {
+        if (data) {
+            alert(data)
+            this.setState({
+                result: data
+            })
+        }
+    }
+    handleError = err => {
+        console.error(err)
+    }
     render() {
         return (
             <div>
                 <QrReader
                     delay={300}
-                    style={{height: 500,  width: '100%' }}
-                    onError={(err) => {
-                        alert('errror')
-                        console.log()
-                    }}
-                    onScan={(res) => {
-                        alert('success')
-                        console.log(res)
-                    }}
-                    legacyMode
+                    onError={this.handleError}
+                    onScan={this.handleScan}
+                    style={{ width: 500, height: 500 }}
                 />
-                {/* <input type="button" value="Submit QR Code" onClick={this.openImageDialog} /> */}
                 <p>{this.state.result}</p>
             </div>
         )
