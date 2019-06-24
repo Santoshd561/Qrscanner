@@ -6,7 +6,8 @@ export default class Test extends Component {
         return (
             <div>
                 <QrReader
-
+                    delay={300}
+                    style={{height: 500,  width: '100%' }}
                     onError={(err) => {
                         alert('errror')
                         console.log()
