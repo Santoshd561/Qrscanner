@@ -1,33 +1,26 @@
-import React, { Component } from 'react'
-import QrReader from 'react-qr-reader'
+import React, { Component, useState } from 'react'
 
-export default class Test extends Component {
-    state = {
-        result: 'No result'
+export default function Test(props) {
+    console.log(useState('test'))
+    const [counter, setCounter] = useState(0)
+    const [user, setUser] = useState({ name: 'tom', age: 12 })
+    React.useEffect(() => {
+        // setTimeout(() => {
+            setName()
+        // }, 3000)
+    }, [user.age])
+    function setName() {
+        setUser({ ...user, name: Date.now() })
     }
-
-    handleScan = data => {
-        if (data) {
-            alert(data)
-            this.setState({
-                result: data
-            })
-        }
-    }
-    handleError = err => {
-        console.error(err)
-    }
-    render() {
-        return (
-            <div>
-                <QrReader
-                    delay={300}
-                    onError={this.handleError}
-                    onScan={this.handleScan}
-                    style={{ width: 500, height: 500 }}
-                />
-                <p>{this.state.result}</p>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <h1>{counter}</h1>
+            <p>{user.name} - {user.age}</p>
+            <button onClick={setName}>change name</button>
+            <button onClick={() => setUser({ ...user, age: 34 })}>change age</button>
+        </div>
+    )
 }
+
+
+
